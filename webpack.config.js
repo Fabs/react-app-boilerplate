@@ -1,5 +1,5 @@
 var webpack = require('webpack');
-
+var path = require('path');
 /*
  * Default webpack configuration for development
  */
@@ -10,8 +10,15 @@ var config = {
     path: __dirname + "/public",
     filename: "bundle.js"
   },
+  plugins: [
+    new webpack.HotModuleReplacementPlugin()
+  ],
   module: {
     loaders: [{
+      test: /\.jsx?$/,
+      loaders: ['react-hot', 'jsx?harmony'],
+      include: path.join(__dirname, 'src')
+    },{
       test: /\.jsx?$/,
       exclude: /node_modules/,
       loader: 'babel',
